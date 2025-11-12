@@ -1,10 +1,12 @@
 * {
     margin: 0;
     padding: 0;
+    /* border: 1px red solid; */
 }
 
 :root {
     --color-azul: #045BF1;
+    --color-azul-claro: #E6EFFF;
     --color-base: #ffffff;
     --color-fundo: #F3F5FA;
     --color-texto: #1D2025;
@@ -13,26 +15,161 @@
 body {
     background-color: var(--color-fundo);
     color: var(--color-texto);
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
 }
 
 header {
     background-color: var(--color-base);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0 24px;
-
+    position: sticky;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    cursor: pointer;
     & img {
         background-color: var(--color-azul);
-        border-radius: 10px;
+        width: 40px;
         height: 40px;
+        border-radius: 14px;
+        padding: 6px;
+        box-sizing: border-box;
     }
 
     & h1 {
         font-size: 20px;
+        font-weight: 700px;
     }
+}
+
+.pesquisa {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: var(--color-fundo);
+    border-radius: 10px;
+    padding: 0 12px;
+    width: 440px;
+    height: 40px;
+    border: 2px solid transparent;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+    & img {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+        opacity: 0.6;
+    }
+
+    & input {
+        flex: 1;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 14px;
+    }
+}
+
+.pesquisa:focus-within {
+    border: 2px solid var(--color-azul);
+    box-shadow: 0 0 4px rgba(4, 91, 241, 0.3);
+}
+
+.opcoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.local {
+    & button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border: none;
+        background-color: transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;        
+        font-family: inherit;
+        color: var(--color-texto);
+
+        & img {
+        width: 22px;
+        height: 22px;
+        transition: filter 0.3s ease;
+        }
+
+        & p {
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+}
+.local button:hover {
+    background-color: var(--color-azul-claro);
+    color: var(--color-azul);
+    
+}
+
+.local:hover img {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(2437%) hue-rotate(210deg) brightness(95%) contrast(101%);
+}
+
+.login {
+    & button {
+        display: flex;
+        align-items: center;
+        border: none;
+        background-color: var(--color-azul);
+        color: var(--color-base);
+        padding: 6px 10px;
+        gap: 8px;
+        border-radius: 8px;
+        font-family: inherit;
+        
+        transition: 0.5s ease;
+        & img {
+            width: 22px;
+            height: 22px;
+        }
+    }
+}
+
+.login button:hover {
+    background-color: #0033a1;
+    transform: scale(1.04);
+}
+
+.carrinho {
+    & button {
+        border: none;
+        background-color: transparent;
+        transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;        
+        padding: 6px 10px;
+        border-radius: 8px;
+        & img {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+    }
+}
+
+.carrinho button:hover {
+    background-color: var(--color-azul-claro);
+}
+
+.carrinho:hover img {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(2437%) hue-rotate(210deg) brightness(95%) contrast(101%);
 }
