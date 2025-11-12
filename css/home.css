@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-azul: #045BF1;
+    --color-base: #ffffff;
+    --color-fundo: #F3F5FA;
+    --color-texto: #1D2025;
+}
+
+body {
+    background-color: var(--color-fundo);
+    color: var(--color-texto);
+    font-family: 'Poppins';
+}
+
+header {
+    background-color: var(--color-base);
+    padding: 0 24px;
+
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    & img {
+        background-color: var(--color-azul);
+        border-radius: 10px;
+        height: 40px;
+    }
+
+    & h1 {
+        font-size: 20px;
+    }
+}
