@@ -10,6 +10,7 @@
     --color-base: #ffffff;
     --color-fundo: #F3F5FA;
     --color-texto: #1D2025;
+    --color-texto2: #6B7280;
 }
 
 body {
@@ -26,6 +27,7 @@ header {
     justify-content: space-between;
     padding: 0 24px;
     position: sticky;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .logo {
@@ -172,4 +174,14 @@ header {
 
 .carrinho:hover img {
     filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(2437%) hue-rotate(210deg) brightness(95%) contrast(101%);
+}
+
+.hero-section {
+    padding: 56px 24px;
+    display: flex;
+    justify-content: center;
+
+    & .hero-card {
+        
+    }
 }
