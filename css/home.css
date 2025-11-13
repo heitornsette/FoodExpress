@@ -7,6 +7,7 @@
 :root {
     --color-azul: #045BF1;
     --color-azul-claro: #E6EFFF;
+    --color-azul-escuro: #0033a1;
     --color-base: #ffffff;
     --color-fundo: #F3F5FA;
     --color-texto: #1D2025;
@@ -148,7 +149,7 @@ header {
 }
 
 .login button:hover {
-    background-color: #0033a1;
+    background-color: var(--color-azul-escuro);
     transform: scale(1.04);
 }
 
@@ -163,7 +164,7 @@ header {
             width: 22px;
             height: 22px;
             cursor: pointer;
-            transition: filter 0.3s ease;
+            transition: transform 0.3s ease;
         }
     }
 }
@@ -182,6 +183,101 @@ header {
     justify-content: center;
 
     & .hero-card {
-        
+        width: min(1150px, 96%);
+        border-radius: 24px;
+        display: flex;
+        gap: 48px;
+        padding: 48px;
+        align-items: center;
+        overflow: hidden;
+
+        & .texto-hero {
+            flex: 1 1 52%;
+            max-width: 55%;
+
+            & h2 {
+                font-size: 64px;
+                line-height: 1.02;
+                font-weight: 700;
+                color: var(--color-texto);
+                margin-bottom: 18px;
+
+                & span {
+                    display: block;
+                    color: var(--color-azul);
+                }
+            }
+
+            & p {
+                color: var(--color-texto2);
+                margin-bottom: 28px;
+                line-height: 1.5;
+            }
+
+            & .hero-btns {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+
+                & .btn-primario {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    background-color: var(--color-azul);
+                    color: #fff;
+                    border: none;
+                    padding: 14px 22px;
+                    border-radius: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    box-shadow: 0 8px 18px rgba(4, 91, 241, 0.2);
+                    transition: transform 0.4s ease, background 0.4s ease;
+
+                    & img {
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    &:hover {
+                        transform: scale(1.04);
+                        background-color: var(--color-azul-escuro);
+                        box-shadow: 0 12px 24px rgba(4, 91, 241, 0.2);
+                    }
+                }
+
+                & .btn-secundario {
+                    background: #fff;
+                    color: var(--color-texto);
+                    border: 1px solid #6B7280;
+                    padding: 12px 20px;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+                    &:hover {
+                        transform: scale(1.04);
+                        box-shadow: 0 8px 18px rgba(16, 24, 40, 0.2);
+                    }
+                }
+            }
+        }
+
+        & .imagem-hero-container {
+            flex: 0 0 44%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            & .imagem-hero {
+                width: 100%;
+                max-width: 620px;
+                border-radius: 20px;
+                object-fit: cover;
+                display: block;
+                box-shadow: 0 8px 18px rgba(16, 24, 40, 0.2);
+            }
+        }
     }
+    
 }
