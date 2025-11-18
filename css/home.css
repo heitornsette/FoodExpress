@@ -36,24 +36,38 @@ header {
     z-index: 999;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    & img {
-        background-color: var(--color-azul);
-        width: 40px;
-        height: 40px;
-        border-radius: 14px;
-        padding: 6px;
-        box-sizing: border-box;
-    }
+.logo a,
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
 
-    & h1 {
-        font-size: 20px;
-        font-weight: 700;
-    }
+.logo a img,
+.logo-link img {
+  background-color: var(--color-azul);
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  padding: 6px;
+  box-sizing: border-box;
+  display: block;
+}
+
+.logo a h1,
+.logo-link h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.logo a:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(4,91,241,0.08);
+  border-radius: 8px;
 }
 
 .pesquisa {
@@ -452,7 +466,8 @@ header {
         transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         cursor: pointer;
         position: relative;
-
+    text-decoration: none;
+    
         &:hover,
         &:focus {
             transform: scale(1.06);

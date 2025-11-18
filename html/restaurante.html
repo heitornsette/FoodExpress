@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FoodExpress — Restaurante</title>
+
+  <link rel="stylesheet" href="../css/home.css">
+
+  <link rel="stylesheet" href="../css/restaurante.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
+        <img src="../imagens/carrinho.svg" alt="">
+        <h1>FoodExpress</h1>
+      </a>
+    </div>
+
+    <div class="pesquisa">
+      <img src="../imagens/magnifying-glass-for-search-svgrepo-com.svg" alt="">
+      <input type="text" placeholder="Buscar restaurantes ou pratos...">
+    </div>
+
+    <div class="opcoes">
+      <div class="local">
+        <button>
+          <img src="../imagens/place-svgrepo-com.svg" alt="">
+          <p>Fortaleza, CE</p>
+        </button>
+      </div>
+
+      <div class="login">
+        <button>
+          <img src="../imagens/exit.svg" alt="">
+          <p>Login</p>
+        </button>
+      </div>
+
+      <div class="carrinho">
+        <button>
+          <img src="../imagens/cart-shopping-svgrepo-com (1).svg" alt="">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="restaurante-hero">
+      <div class="container-960">
+        <div class="hero-grid">
+          <div class="hero-imagem">
+            <img src="../imagens/restaurant-1.jpg" alt="Restaurante" />
+          </div>
+
+          <div class="hero-info">
+            <div class="top-line">
+              <h1 class="rest-name">Burger Palace</h1>
+              <div class="categoria-tag">Hambúrguer • $$</div>
+            </div>
+
+            <div class="meta">
+              <div class="nota">
+                <span class="estrela">★</span>
+                <span class="valor">4.8</span>
+                <span class="separador">·</span>
+                <span class="tempo">25-35 min</span>
+                <span class="separador">·</span>
+                <span class="taxa">Entrega R$ 5,00</span>
+              </div>
+              <p class="descricao">Hambúrgueres artesanais, batatas crocantes e milkshakes feitos na hora. Aberto até 23:00.</p>
+            </div>
+
+            <div class="acoes">
+              <button class="btn-primario btn-pequeno">
+                <img src="../imagens/fork-and-knife-meal-2-svgrepo-com.svg" alt="">
+                Ver Cardápio
+              </button>
+              <button class="btn-secundario btn-pequeno">Favoritar</button>
+              <button class="btn-secundario btn-pequeno">Avaliações</button>
+            </div>
+
+            <div class="info-adicional">
+              <div><strong>Endereço:</strong> Av. Example, 123 — Aldeota</div>
+              <div><strong>Horário:</strong> 11:00 — 23:00</div>
+              <div><strong>Telefone:</strong> (85) 9 9999-9999</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="restaurante-body container-960">
+      <div class="main-col">
+        <nav class="tabs">
+          <button class="tab active" data-tab="cardapio">Cardápio</button>
+          <button class="tab" data-tab="sobre">Sobre</button>
+          <button class="tab" data-tab="avaliacoes">Avaliações</button>
+        </nav>
+
+        <div id="cardapio" class="tab-panel active">
+          <h2 class="sec-title">Cardápio popular</h2>
+
+          <div class="menu-grid">
+            <article class="menu-item">
+              <img src="../imagens/burger.png" alt="Cheeseburger" class="item-thumb">
+              <div class="item-body">
+                <h3 class="item-name">Cheeseburger Clássico</h3>
+                <p class="item-desc">Pão brioche, carne 180g, queijo cheddar, alface, tomate e molho especial.</p>
+              </div>
+              <div class="item-meta">
+                <div class="item-price">R$ 28,00</div>
+                <div class="item-actions">
+                  <button class="btn-secundario btn-sm">-</button>
+                  <button class="btn-primario btn-sm">Adicionar</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="menu-item">
+              <img src="../imagens/fries.jpg" alt="Batata frita" class="item-thumb">
+              <div class="item-body">
+                <h3 class="item-name">Batata Frita</h3>
+                <p class="item-desc">Porção média, crocante por fora e macia por dentro.</p>
+              </div>
+              <div class="item-meta">
+                <div class="item-price">R$ 12,00</div>
+                <div class="item-actions">
+                  <button class="btn-secundario btn-sm">-</button>
+                  <button class="btn-primario btn-sm">Adicionar</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="side-col">
+        <div class="cart-card">
+          <h3>Seu pedido</h3>
+          <div class="cart-empty">Seu carrinho está vazio</div>
+
+          <div class="cart-footer">
+            <div class="subtotal">
+              <span>Subtotal</span>
+              <strong>R$ 0,00</strong>
+            </div>
+
+            <button class="btn-primario btn-block">Finalizar pedido</button>
+            <button class="btn-secundario btn-block">Continuar comprando</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="footer-section">
+      <div class="footer-bottom">
+        <div class="footer-logo">
+          <img src="../imagens/fork-and-knife-meal-2-svgrepo-com.svg" alt="">
+          <h3>FoodExpress</h3>
+        </div>
+
+        <p class="direitos">© 2025 FoodExpress. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
