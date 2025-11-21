@@ -1,0 +1,82 @@
+<div class="fe-login-overlay" id="feLoginOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="feLoginTitle">
+  <div class="fe-login-card" role="document">
+
+    <button class="fe-login-close" id="feLoginClose" aria-label="Fechar (Esc)">✕</button>
+
+    <div class="fe-login-main" id="feLoginMain">
+      <div class="fe-brand" role="img" aria-hidden="true">
+        <div class="fe-brand-icon" aria-hidden="true">
+            <img src="../imagens/carrinho.svg" alt="" class="carrinho">
+          </svg>
+        </div>
+        <div class="fe-brand-text">
+          <span class="fe-brand-name">FoodExpress</span>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:6px;">
+        <h2 id="feLoginTitle" class="fe-welcome">Bem-vindo</h2>
+        <p class="fe-sub">Faça login ou crie sua conta para continuar</p>
+      </div>
+
+      <div class="fe-login-tabs" role="tablist" aria-label="Login ou Cadastro">
+        <button class="fe-login-tab is-active" data-tab="login" role="tab" aria-selected="true">Login</button>
+        <button class="fe-login-tab" data-tab="signup" role="tab" aria-selected="false">Cadastro</button>
+      </div>
+
+      <form class="fe-form" id="feLoginForm" novalidate>
+
+        <div class="fe-panel" data-panel="login">
+          <div class="field">
+            <label for="fe_login_email">Email</label>
+            <input id="fe_login_email" name="email" type="email" placeholder="seu@email.com" required autocomplete="email">
+            <div class="fe-error" id="fe_err_email" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="fe_login_password">Senha</label>
+            <input id="fe_login_password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" minlength="6">
+            <div class="fe-error" id="fe_err_pass" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <button type="submit" class="btn-primary full">Entrar</button>
+          </div>
+        </div>
+
+        <div class="fe-panel" data-panel="signup" hidden>
+          <div class="field">
+            <label for="fe_signup_name">Nome</label>
+            <input id="fe_signup_name" name="name" type="text" placeholder="Seu nome" required autocomplete="name">
+            <div class="fe-error" id="fe_err_name" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="fe_signup_email">Email</label>
+            <input id="fe_signup_email" name="email" type="email" placeholder="seu@email.com" required autocomplete="email">
+            <div class="fe-error" id="fe_err_semail" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="fe_signup_password">Senha</label>
+            <input id="fe_signup_password" name="password" type="password" placeholder="6+ caracteres" required minlength="6" autocomplete="new-password">
+            <div class="fe-error" id="fe_err_spass" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="fe_signup_telefone">Telefone</label>
+            <input id="fe_signup_telefone" name="telefone" type="tel" placeholder="(85) 9XXXX-XXXX" required autocomplete="tel">
+            <div class="fe-error" id="fe_err_telefone" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <button type="submit" class="btn-primary full">Criar conta</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <aside class="fe-login-side" aria-hidden="true"></aside>
+  </div>
+</div>
