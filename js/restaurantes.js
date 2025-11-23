@@ -19,24 +19,31 @@ async function loadRestaurants() {
 
     grid.innerHTML = "";
 
-    restaurants.forEach(r => {
-      const card = document.createElement("div");
-      card.classList.add("restaurant-card");
+restaurants.forEach(r => {
+  const card = document.createElement("div");
+  card.classList.add("restaurant-card");
 
-      card.innerHTML = `
-        <div class="card-img">
-          <img src="../imagens/generica.png" alt="${r.nome}">
-        </div>
+  card.innerHTML = `
+    <div class="card-img">
+      <img src="../imagens/generica.png" alt="${r.nome}">
+    </div>
 
-        <div class="card-info">
-          <h3>${r.nome}</h3>
-          <p class="cozinha">${r.cozinha}</p>
-          <p class="telefone">☎ ${r.telefone}</p>
-        </div>
-      `;
+    <div class="card-info">
+      <h3>${r.nome}</h3>
+      <p class="cozinha">${r.cozinha}</p>
+      <p class="telefone">☎ ${r.telefone}</p>
+    </div>
+  `;
 
-      grid.appendChild(card);
-    });
+  card.addEventListener("click", () => {
+    localStorage.setItem("fe_selected_restaurant", JSON.stringify(r));
+
+    window.location.href = "../html/restaurante.html";
+  });
+
+  grid.appendChild(card);
+});
+
 
   } catch (err) {
     console.error(err);

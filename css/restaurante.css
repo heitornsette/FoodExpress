@@ -135,7 +135,7 @@
 
 .restaurante-body {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr;
   gap: 28px;
   width: min(1200px, 96%);
   margin: 22px auto;
@@ -266,69 +266,6 @@
     }
   }
 
-  .side-col {
-    position: relative;
-
-    .cart-card {
-      position: sticky;
-      top: 80px;
-      background: var(--color-base);
-      padding: 18px;
-      border-radius: 12px;
-      border:1px solid rgba(16,24,40,0.04);
-      box-shadow: 0 6px 18px rgba(16,24,40,0.04);
-
-      h3 { 
-        margin-bottom: 12px; 
-        font-size:18px; 
-        color:var(--color-texto); 
-      }
-      .cart-empty { 
-        color: var(--color-texto2); 
-        padding: 22px 8px; 
-        text-align:center; 
-        border-radius:8px; 
-        background: var(--color-fundo); 
-      }
-
-      .cart-footer {
-        margin-top: 16px;
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-
-        .subtotal {
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          color:var(--color-texto2);
-          padding-bottom:8px;
-          border-bottom:1px dashed rgba(0,0,0,0.06);
-        }
-
-        .btn-block {
-          display:block;
-          width:100%;
-          padding:12px 14px;
-          border-radius:10px;
-          font-weight:700;
-          cursor:pointer;
-          border:none;
-
-          &.btn-primario { 
-            background: var(--color-azul); 
-            color:#fff; 
-          }
-          &.btn-secundario { 
-            background:#fff; 
-            border:1px solid rgba(16,24,40,0.06); 
-            color:var(--color-texto); 
-          }
-        }
-      }
-    }
-  }
-
   .review {
     background: var(--color-base);
     padding:12px;
@@ -358,3 +295,37 @@
     }
   }
 }
+
+.header-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.header-cart-btn:hover {
+  background: rgba(0,0,0,0.03);
+}
+#feCartPanel {
+  position: fixed;
+  right: -420px;
+  top: 0;
+  height: 100vh;
+  width: 380px;
+  max-width: 92%;
+  background: #fff;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.15);
+  transition: right 260ms ease;
+  z-index: 2000;
+  padding: 18px;
+  display:flex;
+  flex-direction:column;
+}
+#feCartPanel.open { right: 0; }
+#feCartPanel .cart-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+#feCartPanel .cart-items { overflow:auto; flex:1; padding-right:6px; }
+#feCartPanel .cart-footer { margin-top:12px; }
+.cart-row { border-bottom:1px solid #f0f0f0; padding:10px 0; display:flex; gap:10px; align-items:center; }

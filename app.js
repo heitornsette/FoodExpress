@@ -16,6 +16,8 @@ app.use(cors({
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/restaurants', require('./routes/restaurants'));
+app.use("/api", require("./routes/items"));
+app.use('/api/pedidos', require('./routes/pedidos'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

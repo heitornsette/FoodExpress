@@ -42,8 +42,9 @@
     </div>
 
       <div class="carrinho">
-        <button>
-          <img src="../imagens/cart-shopping-svgrepo-com (1).svg" alt="">
+        <button id="headerCartBtn" class="header-cart-btn" aria-label="Abrir carrinho">
+          <img src="../imagens/cart-shopping-svgrepo-com (1).svg" alt="Carrinho" style="width:20px;height:20px">
+          <span id="headerCartCount" style="display:inline-block;margin-left:8px;font-weight:600">0</span>
         </button>
       </div>
     </div>
@@ -135,28 +136,10 @@
                 </div>
               </div>
             </article>
-
           </div>
         </div>
 
       </div>
-
-      <aside class="side-col">
-        <div class="cart-card">
-          <h3>Seu pedido</h3>
-          <div class="cart-empty">Seu carrinho está vazio</div>
-
-          <div class="cart-footer">
-            <div class="subtotal">
-              <span>Subtotal</span>
-              <strong>R$ 0,00</strong>
-            </div>
-
-            <button class="btn-primario btn-block">Finalizar pedido</button>
-            <button class="btn-secundario btn-block">Continuar comprando</button>
-          </div>
-        </div>
-      </aside>
     </section>
 
     <footer class="footer-section">
@@ -170,6 +153,34 @@
       </div>
     </footer>
   </main>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = localStorage.getItem("fe_selected_restaurant");
+
+  if (!data) {
+    console.warn("Nenhum restaurante selecionado.");
+    return;
+  }
+
+  const r = JSON.parse(data);
+
+  document.querySelector(".rest-name").textContent = r.nome;
+
+  document.querySelector(".categoria-tag").textContent = r.cozinha;
+
+  document.querySelector(".descricao").textContent =
+    `${r.nome} — especializado em ${r.cozinha}.`;
+
+  const telDiv = document.querySelector(".info-adicional div:nth-child(3)");
+  if (telDiv) {
+    telDiv.innerHTML = `<strong>Telefone:</strong> ${r.telefone}`;
+  }
+
+  document.querySelector(".hero-imagem img").src = "../imagens/generica.png";
+});
+</script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/restaurante-public-items.js"></script>
   <script src="../js/auth-ui.js"></script>
 </body>
 </html>

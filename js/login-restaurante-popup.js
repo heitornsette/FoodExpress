@@ -78,11 +78,16 @@
 
         console.log('Login restaurante OK:', body);
 
+        localStorage.setItem('fe_restaurant_token', body.token);
+
+        localStorage.setItem('fe_restaurant', JSON.stringify(body.restaurant));
+
         closeModal();
 
         setTimeout(() => {
           window.location.replace("../html/restaurante-edit.html");
         }, 150);
+        ;
 
       } catch (err) {
         alert('Erro de conexão com servidor.');

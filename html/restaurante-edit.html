@@ -25,7 +25,6 @@
   </header>
 
   <main class="rest-edit-main">
-    <!-- HERO -->
     <section class="rest-edit-hero container-960">
       <div class="hero-grid">
 
@@ -52,7 +51,6 @@
 
           <div class="acoes">
             <button class="btn-primario btn-pequeno">Editar descrição</button>
-            <button class="btn-secundario btn-pequeno">Criar item</button>
             <button class="btn-secundario btn-pequeno">Ver pedidos</button>
           </div>
 
@@ -79,30 +77,15 @@
         <h2 class="sec-title">Itens do cardápio</h2>
 
         <div class="menu-actions">
-          <button class="btn-primario">+ Novo item</button>
+          <button class="btn-primario" onclick="openCreateItemModal()">Novo item +</button>
 
           <div class="search-wrap">
             <input placeholder="Buscar item..." class="input-search">
           </div>
         </div>
 
-        <div class="menu-grid">
-          <article class="menu-item">
-            <img src="../imagens/burger.png" class="item-thumb">
-            <div class="item-body">
-              <h3 class="item-name">Cheeseburger Clássico</h3>
-              <p class="item-desc">Pão brioche, carne 180g, cheddar, alface, tomate e molho especial.</p>
-            </div>
-
-            <div class="item-meta">
-              <div class="item-price">R$ 28,00</div>
-              <div class="item-actions">
-                <button class="btn-secundario">Editar</button>
-                <button class="btn-secundario">Duplicar</button>
-                <button class="btn-secundario">Remover</button>
-              </div>
-            </div>
-          </article>
+        <div class="menu-grid" id="menuGrid">
+          <p>Carregando itens...</p>
         </div>
       </div>
 
@@ -156,6 +139,35 @@
 
     </section>
   </main>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const data = localStorage.getItem("fe_restaurant");
 
+    if (!data) {
+      alert("Você precisa fazer login como restaurante.");
+      window.location.href = "../html/home.html";
+      return;
+    }
+
+    const rest = JSON.parse(data);
+
+    const title = document.querySelector(".rest-title");
+    if (title) {
+      title.innerHTML = `${rest.nome} <small>— Editar</small>`;
+    }
+
+    const telefoneEl = document.querySelector(".info-adicional div:nth-child(3)");
+    if (telefoneEl) {
+      telefoneEl.innerHTML = `<strong>Telefone:</strong> ${rest.telefone}`;
+    }
+
+    const categoriaTag = document.querySelector(".categoria-tag");
+    if (categoriaTag) {
+      categoriaTag.textContent = rest.cozinha;
+    }
+  });
+  </script>
+<script src="../js/create-item.js"></script>
+<script src="../js/restaurante-edit-items.js"></script>
 </body>
 </html>

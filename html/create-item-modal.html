@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feCreateItemOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="fe-login-card" role="document">
+
+    <a href="#" class="fe-login-close" id="feCreateItemClose" aria-label="Fechar (Esc)">✕</a>
+
+    <div class="fe-login-main">
+      <div class="fe-brand">
+        <div class="fe-brand-icon">
+          <img src="../imagens/carrinho.svg" alt="" style="width:22px;height:22px;">
+        </div>
+        <span class="fe-brand-name">FoodExpress</span>
+      </div>
+
+      <h2 class="fe-welcome">Criar Item</h2>
+      <p class="fe-sub">Preencha as informações do novo item do cardápio</p>
+
+      <form class="fe-form" id="feCreateItemForm">
+
+        <div class="field">
+          <label>Nome do item</label>
+          <input id="item_name" type="text" required placeholder="Ex: Cheeseburger Clássico">
+        </div>
+
+        <div class="field">
+          <label>Descrição</label>
+          <textarea id="item_desc" rows="3" required placeholder="Descrição do item"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Preço (R$)</label>
+          <input id="item_price" type="number" step="0.01" required placeholder="Ex: 29.90">
+        </div>
+
+        <div class="field">
+          <label>Categoria</label>
+          <input id="item_cat" type="text" placeholder="Ex: Lanche, Bebida, Sobremesa">
+        </div>
+
+        <button class="btn-primary full" type="submit">Criar Item</button>
+
+      </form>
+    </div>
+
+  </div>
+</div>
