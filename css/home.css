@@ -600,7 +600,7 @@ header {
     }
 
     .footer-bottom {
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-top:1px solid rgba(0, 0, 0, 0.08);
         padding-top: 22px;
         display: flex;
         align-items: center;
@@ -662,13 +662,28 @@ header {
     cursor: pointer;
 }
 
-.logout-btn {
-    margin-top: 10px;
-    width: 100%;
-    background: #ff4d4d;
+.footer-admin-btn {
+    background: none;
     border: none;
-    color: white;
-    padding: 8px;
-    border-radius: 6px;
+    font-size: 14px;
+    color: var(--color-texto2);
     cursor: pointer;
+    font-weight: 700;
+    transition: 0.25s ease;
+    padding: 0;
+}
+
+.footer-admin-btn:hover {
+    color: var(--color-texto);
+    text-decoration: underline;
+}
+
+#restLoginModal {
+  display: none;
+}
+
+#restLoginModal:target {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }

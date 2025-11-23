@@ -15,6 +15,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/restaurants', require('./routes/restaurants'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

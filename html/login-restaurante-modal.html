@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feRestLoginOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="feRestLoginTitle">
+  <div class="fe-login-card" role="document">
+
+    <a href="#" class="fe-login-close" id="feRestLoginClose" aria-label="Fechar (Esc)">✕</a>
+
+    <div class="fe-login-main">
+      <div class="fe-brand">
+        <div class="fe-brand-icon">
+          <img src="../imagens/carrinho.svg" alt="" style="width:22px;height:22px;">
+        </div>
+        <span class="fe-brand-name">FoodExpress</span>
+      </div>
+
+      <h2 id="feRestLoginTitle" class="fe-welcome">Login Restaurante</h2>
+      <p class="fe-sub">Entre com o nome do seu restaurante para acessar o painel</p>
+
+      <form class="fe-form" id="feRestLoginForm" method="post" action="/api/restaurants/login">
+
+        <div class="field">
+          <label for="rest_login_name">Nome do restaurante</label>
+          <input id="rest_login_name" name="nome" type="text" required placeholder="Ex: Burger Palace">
+          <div class="fe-error" id="rest_err_name" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="rest_login_password">Senha</label>
+          <input id="rest_login_password" name="senha" type="password" required minlength="6" placeholder="••••••••">
+          <div class="fe-error" id="rest_err_pass" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <button class="btn-primary full" type="submit">Entrar</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FoodExpress — Editar Restaurante</title>
+
+  <link rel="stylesheet" href="../css/restaurante-edit.css">
+  <link rel="stylesheet" href="../css/login-popup.css">
+</head>
+
+<body>
+  <header class="rest-header">
+    <div class="logo">
+      <a href="../html/home.html" class="logo-link">
+        <img src="../imagens/carrinho.svg" alt="">
+        <h1>FoodExpress</h1>
+      </a>
+    </div>
+
+    <button class="perfil-btn">
+      <img src="../imagens/user.svg" alt="" class="perfil-ico">
+      <span>Meu Perfil</span>
+    </button>
+  </header>
+
+  <main class="rest-edit-main">
+    <!-- HERO -->
+    <section class="rest-edit-hero container-960">
+      <div class="hero-grid">
+
+        <div class="hero-imagem">
+          <img src="../imagens/burger.png" alt="Imagem do restaurante">
+        </div>
+
+        <div class="hero-info">
+          <div class="top-line">
+            <h1 class="rest-title">
+              Burger Palace <small>— Editar</small>
+            </h1>
+            <span class="categoria-tag">Hambúrguer • $$</span>
+          </div>
+
+          <div class="meta">
+            <div class="nota">
+              <span class="estrela">★</span> 4.8 • 25–35 min
+            </div>
+            <p class="descricao">
+              Hambúrgueres artesanais, batatas crocantes e milkshakes feitos na hora.
+            </p>
+          </div>
+
+          <div class="acoes">
+            <button class="btn-primario btn-pequeno">Editar descrição</button>
+            <button class="btn-secundario btn-pequeno">Criar item</button>
+            <button class="btn-secundario btn-pequeno">Ver pedidos</button>
+          </div>
+
+          <div class="info-adicional">
+            <div><strong>Endereço:</strong> Av. Example, 123 — Aldeota</div>
+            <div><strong>Horário:</strong> 11:00 — 23:00</div>
+            <div><strong>Telefone:</strong> (85) 9 9999-9999</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="rest-edit-body container-960">
+
+      <div class="tabs">
+        <button class="tab active" data-tab="cardapio">Cardápio</button>
+        <button class="tab" data-tab="descricao">Descrição</button>
+        <button class="tab" data-tab="pedidos">Pedidos</button>
+        <button class="tab" data-tab="config">Configurações</button>
+      </div>
+
+      <div id="cardapio" class="tab-panel active">
+        <h2 class="sec-title">Itens do cardápio</h2>
+
+        <div class="menu-actions">
+          <button class="btn-primario">+ Novo item</button>
+
+          <div class="search-wrap">
+            <input placeholder="Buscar item..." class="input-search">
+          </div>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item">
+            <img src="../imagens/burger.png" class="item-thumb">
+            <div class="item-body">
+              <h3 class="item-name">Cheeseburger Clássico</h3>
+              <p class="item-desc">Pão brioche, carne 180g, cheddar, alface, tomate e molho especial.</p>
+            </div>
+
+            <div class="item-meta">
+              <div class="item-price">R$ 28,00</div>
+              <div class="item-actions">
+                <button class="btn-secundario">Editar</button>
+                <button class="btn-secundario">Duplicar</button>
+                <button class="btn-secundario">Remover</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div id="descricao" class="tab-panel">
+        <h2 class="sec-title">Descrição do restaurante</h2>
+        <form class="form-card">
+          <label>Descrição curta</label>
+          <textarea rows="4" class="input-textarea">Hambúrgueres artesanais...</textarea>
+
+          <label>Descrição longa</label>
+          <textarea rows="6" class="input-textarea">Texto completo sobre o restaurante...</textarea>
+
+          <button class="btn-primario">Salvar</button>
+        </form>
+      </div>
+
+      <div id="pedidos" class="tab-panel">
+        <h2 class="sec-title">Pedidos</h2>
+        <div class="orders-list">
+          <div class="order-row">
+            <div class="order-left">
+              <strong>#1024</strong> — <span class="muted">21 Nov 2025</span>
+            </div>
+            <div class="order-middle">
+              1× Cheeseburger Clássico
+            </div>
+            <div class="order-right">
+              <span class="chip preparing">Preparando</span>
+              <button class="btn-secundario">Ver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="config" class="tab-panel">
+        <h2 class="sec-title">Configurações</h2>
+
+        <form class="form-card">
+          <label>Horário</label>
+          <input class="input" value="11:00 - 23:00">
+
+          <label>Taxa de entrega (R$)</label>
+          <input class="input" value="5.00">
+
+          <label>Tempo médio (min)</label>
+          <input class="input" value="25 - 35">
+
+          <button class="btn-primario">Salvar</button>
+        </form>
+      </div>
+
+    </section>
+  </main>
+
+</body>
+</html>

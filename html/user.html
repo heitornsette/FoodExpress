@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FoodExpress</title>
+
+  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="../css/user.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <script src="../js/login-popup.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
+        <img src="../imagens/carrinho.svg" alt="">
+        <h1>FoodExpress</h1>
+      </a>
+    </div>
+
+    <div class="opcoes">
+      <div class="perfil-action">
+        <button class="perfil-btn" onclick="openLoginPopup()">
+          <img src="../imagens/user.svg" alt="" style="width:20px;height:20px;">
+          <span>Meu Perfil</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="user-main">
+    <div class="container-960 user-grid">
+      <aside class="user-sidebar" aria-label="Menu do usuário">
+        <div class="profile-card">
+          <div class="avatar-wrap">
+            <img src="../imagens/user.svg" alt="Avatar do usuário" class="avatar">
+          </div>
+          <div class="profile-info">
+            <h3 class="user-name">Heitor Sette</h3>
+            <p class="user-email">heitor@example.com</p>
+          </div>
+
+          <div class="profile-stats">
+            <div>
+              <div class="stat-num">0</div>
+              <div class="stat-label">Pedidos</div>
+            </div>
+            <div>
+              <div class="stat-num">0</div>
+              <div class="stat-label">Favoritos</div>
+            </div>
+            <div>
+              <div class="stat-num">R$ 0,00</div>
+              <div class="stat-label">Saldo</div>
+            </div>
+          </div>
+
+          <nav class="user-nav" aria-label="Navegação do usuário">
+            <button class="user-nav-item active" data-target="pedidos">Pedidos</button>
+            <button class="user-nav-item" data-target="enderecos">Endereços</button>
+            <button class="user-nav-item" data-target="favoritos">Favoritos</button>
+            <button class="user-nav-item" data-target="pagamentos">Pagamentos</button>
+            <button class="user-nav-item" data-target="configuracoes">Configurações</button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- CONTEÚDO -->
+      <section class="user-content">
+        <!-- Pedidos -->
+        <div id="pedidos" class="tab-panel active">
+          <div class="panel-header">
+            <h2>Meus Pedidos</h2>
+            <p class="muted">Últimos pedidos e status</p>
+          </div>
+
+        </div>
+
+        <!-- Endereços -->
+        <div id="enderecos" class="tab-panel">
+          <div class="panel-header">
+            <h2>Endereços</h2>
+            <p class="muted">Endereços salvos para entrega</p>
+            <button class="btn-primario">Adicionar endereço</button>
+          </div>
+        </div>
+
+
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer-section">
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="../imagens/fork-and-knife-meal-2-svgrepo-com.svg" alt="">
+        <h3>FoodExpress</h3>
+      </div>
+
+        <button class="admin-footer-btn hidden-admin">Criar Restaurante</button>
+
+      <p class="direitos">© 2025 FoodExpress. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+<script src="../js/auth-ui.js" defer></script>
+<script src="../js/admin.js" defer></script>
+
+</body>
+</html>

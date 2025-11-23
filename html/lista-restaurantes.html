@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FoodExpress — Restaurantes</title>
+
+  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="../css/lista-restaurantes.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <script src="../js/login-popup.js" defer></script>
+
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
+        <img src="../imagens/carrinho.svg" alt="">
+        <h1>FoodExpress</h1>
+      </a>
+    </div>
+
+    <div class="pesquisa">
+      <img src="../imagens/magnifying-glass-for-search-svgrepo-com.svg" alt="">
+      <input type="text" placeholder="Buscar restaurantes ou pratos...">
+    </div>
+
+    <div class="opcoes">
+      <div class="local">
+        <button>
+          <img src="../imagens/place-svgrepo-com.svg" alt="">
+          <p>Fortaleza, CE</p>
+        </button>
+      </div>
+
+      <div class="login">
+        <button onclick="openLoginPopup()">
+          <img src="../imagens/exit.svg">
+          <p>Login</p>
+        </button>
+      </div>
+
+      <div class="carrinho">
+        <button>
+          <img src="../imagens/cart-shopping-svgrepo-com (1).svg" alt="Carrinho">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="restaurantes-page container">
+      <div class="page-grid container-960">
+
+        <aside class="filters-col">
+          <div class="filters-card">
+            <h3>Filtros</h3>
+
+            <label class="filter-label">Tipo de cozinha</label>
+            <select class="filter-select">
+              <option>Todas</option>
+              <option>Hambúrguer</option>
+              <option>Pizza</option>
+              <option>Japonês</option>
+              <option>Saudável</option>
+            </select>
+
+            <label class="filter-label">Ordenar por</label>
+            <select class="filter-select">
+              <option>Relevância</option>
+              <option>Maior avaliação</option>
+              <option>Tempo de entrega</option>
+            </select>
+
+            <div style="margin-top:16px;">
+              <button class="btn-primario full">Aplicar</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="list-col">
+          <div class="list-header">
+            <h2>Restaurantes</h2>
+            <p class="muted">Escolha entre os melhores da sua região</p>
+          </div>
+
+          <div class="restaurants-grid">
+
+          </div>
+
+          <div class="pagination">
+            <a class="page-link" href="#prev">Anterior</a>
+            <span class="page-num">1</span>
+            <a class="page-link" href="#2">2</a>
+            <a class="page-link" href="#3">3</a>
+            <a class="page-link" href="#next">Próxima</a>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-section">
+    <div class="footer-bottom">
+      <div class="footer-logo">
+        <img src="../imagens/fork-and-knife-meal-2-svgrepo-com.svg" alt="">
+        <h3>FoodExpress</h3>
+      </div>
+
+      <p class="direitos">© 2025 FoodExpress. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+<script src="../js/auth-ui.js"></script>
+<script src="../js/restaurantes.js"></script>
+</body>
+</html>

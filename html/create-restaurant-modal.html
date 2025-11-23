@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feCreateRestOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="feCreateRestTitle">
+  <div class="fe-login-card" role="document">
+
+    <button class="fe-login-close" id="feCreateRestClose" aria-label="Fechar">✕</button>
+
+    <div class="fe-login-main">
+      <div class="fe-brand">
+        <div class="fe-brand-icon">
+          <img src="../imagens/carrinho.svg" alt="" style="width:22px;height:22px;">
+        </div>
+        <span class="fe-brand-name">FoodExpress</span>
+      </div>
+
+      <h2 class="fe-welcome">Cadastrar Restaurante</h2>
+      <p class="fe-sub">Complete as informações abaixo para registrar o restaurante.</p>
+
+      <form class="fe-form" id="feCreateRestForm" method="post" action="#">
+        
+        <div class="field">
+          <label for="rest_name">Nome do restaurante</label>
+          <input id="rest_name" name="name" type="text" placeholder="Ex: Burger Palace" required>
+        </div>
+
+        <div class="field">
+          <label for="rest_cuisine">Tipo de cozinha</label>
+          <select id="rest_cuisine" name="cuisine" required>
+            <option value="">Selecione...</option>
+            <option>Hambúrguer</option>
+            <option>Pizza</option>
+            <option>Japonês</option>
+            <option>Saudável</option>
+            <option>Sorvetes</option>
+            <option>Outros</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="rest_tel">Telefone</label>
+          <input id="rest_tel" name="telefone" type="tel" placeholder="(85) 9XXXX-XXXX" required>
+        </div>
+
+        <div class="field">
+          <label for="rest_password">Senha</label>
+          <input id="rest_password" name="password" type="password" placeholder="Crie uma senha" required minlength="6">
+        </div>
+
+        <div class="field">
+          <button type="submit" class="btn-primary full">Cadastrar Restaurante</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
