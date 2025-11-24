@@ -19,7 +19,7 @@ app.use('/api/restaurants', require('./routes/restaurants'));
 app.use("/api", require("./routes/items"));
 app.use('/api/pedidos', require('./routes/pedidos'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server rodando na porta ${PORT}`));

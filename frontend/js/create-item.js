@@ -1,9 +1,7 @@
+// /mnt/data/create-item.js
 (function () {
 
-  const modalPaths = [
-    "../html/create-item-modal.html",
-    "./html/create-item-modal.html"
-  ];
+  const modalPaths = [ "../html/modals/create-item-modal.html"];
 
   async function openCreateItemModal() {
     let overlay = document.getElementById("feCreateItemOverlay");
@@ -52,9 +50,7 @@
 
       const item = {
         nome: document.getElementById("item_name").value.trim(),
-        descricao: document.getElementById("item_desc").value.trim(),
-        preco: parseFloat(document.getElementById("item_price").value),
-        categoria: document.getElementById("item_cat").value.trim()
+        preco: parseFloat(document.getElementById("item_price").value)
       };
 
       const rest = JSON.parse(localStorage.getItem("fe_restaurant"));
@@ -79,6 +75,11 @@
 
         alert("Item criado com sucesso!");
         close();
+
+        // recarregar lista do cardápio (se existir função)
+        if (typeof loadRestaurantItems === 'function') {
+          try { setTimeout(()=> loadRestaurantItems(), 300); } catch(e){}
+        }
 
       } catch (err) {
         alert("Erro de conexão com servidor.");

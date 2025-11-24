@@ -1,6 +1,6 @@
 (function () {
   const cssPath = '../css/login-popup.css';
-  const htmlPath = '../html/login-modal.html';
+  const htmlPath = '../html/modals/login-modal.html';
 
   if (!document.querySelector(`link[href="${cssPath}"]`)) {
     const link = document.createElement('link');
@@ -150,15 +150,27 @@ async function handleLogin() {
   if (!ok) return;
 
   try {
+    console.log('[LOGIN] enviando requisição', { email });
+
     const res = await fetch('http://localhost:3000/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pass })
     });
 
-    const body = await res.json().catch(() => null);
+    console.log('[LOGIN] status:', res.status, 'ok:', res.ok);
+
+    // tenta extrair JSON (se houver)
+    let body = null;
+    try {
+      body = await res.json();
+    } catch (err) {
+      console.warn('[LOGIN] resposta não é JSON ou corpo vazio', err);
+    }
+    console.log('[LOGIN] corpo:', body);
 
     if (!res.ok) {
+      // mostra mensagem do backend quando disponível
       const msg = body && body.message ? body.message : `Erro ${res.status}`;
       if (res.status === 401) {
         showError('fe_err_pass', msg);
@@ -168,29 +180,33 @@ async function handleLogin() {
       return;
     }
 
+    // sucesso esperado: { success: true, token, user }
     if (body && body.token) {
-      localStorage.setItem('fe_token', body.token);
-
-      const user = body.user || body.cliente || null;
-      if (user) {
-        localStorage.setItem('fe_user', JSON.stringify(user));
+      // salvar token + usuário explicitamente
+      try {
+        localStorage.setItem('fe_token', body.token);
+        if (body.user) localStorage.setItem('fe_user', JSON.stringify(body.user));
+        else localStorage.removeItem('fe_user');
+      } catch (err) {
+        console.warn('[LOGIN] erro ao acessar localStorage', err);
       }
 
       successMessage('Entrou com sucesso!');
 
+      // força reload e fecha modal
       setTimeout(() => {
-        closeModal();
+        try { closeModal(); } catch (e) {}
         window.location.reload();
-      }, 800);
+      }, 500);
     } else {
-      showError('fe_err_pass', 'Resposta inválida do servidor.');
+      showError('fe_err_pass', body && body.message ? body.message : 'Resposta inválida do servidor.');
     }
-
   } catch (err) {
+    console.error('Erro login (fetch):', err);
     showError('fe_err_pass', 'Erro de conexão com o servidor.');
-    console.error('Erro login:', err);
   }
 }
+
 
 function handleSignup() {
   const nameEl = document.getElementById('fe_signup_name');
@@ -198,10 +214,16 @@ function handleSignup() {
   const passEl = document.getElementById('fe_signup_password');
   const telEl = document.getElementById('fe_signup_telefone');
 
+  // ➕ ENDEREÇO ADICIONADO
+  const endEl = document.getElementById('fe_signup_endereco');
+
   const name = nameEl?.value.trim() || '';
   const email = emailEl?.value.trim() || '';
   const pass = passEl?.value || '';
   const telRaw = telEl?.value.trim() || '';
+
+  // ➕ ENDEREÇO ADICIONADO
+  const endereco = endEl?.value.trim() || '';
 
   clearErrors();
 
@@ -229,14 +251,21 @@ function handleSignup() {
     ok = false;
   }
 
+  // ➕ ENDEREÇO ADICIONADO (vem do backend)
+  if (!endereco || endereco.length < 4) {
+    showError('fe_err_endereco', 'Endereço inválido');
+    ok = false;
+  }
+
   if (!ok) return;
 
   const telefone = digits;
 
+  // ➕ ENDEREÇO ADICIONADO AQUI NO BODY
   fetch('http://localhost:3000/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, password: pass, telefone })
+    body: JSON.stringify({ name, email, password: pass, telefone, endereco })
   })
   .then(async res => {
     const body = await res.json().catch(()=>null);
@@ -261,6 +290,7 @@ function handleSignup() {
     showError('fe_err_telefone', err.message || 'Erro ao criar conta');
   });
 }
+
 
     function showError(id, msg) {
       const el = document.getElementById(id);

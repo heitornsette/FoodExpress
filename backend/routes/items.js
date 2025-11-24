@@ -2,18 +2,24 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../src/db");
 
+// Caminho da imagem padrão
+const ITEM_DEFAULT_IMAGE = "/imagens/burger.png";
+
+// Criar item
 router.post("/restaurants/:id/items", async (req, res) => {
   try {
     const id_restaurante = req.params.id;
-    const { nome, descricao, preco, categoria } = req.body;
+    const { nome, preco } = req.body;
 
-    if (!nome || !descricao || !preco) {
-      return res.status(400).json({ message: "Campos obrigatórios faltando." });
+    if (!nome || preco == null || isNaN(Number(preco))) {
+      return res.status(400).json({ message: "Nome e preço são obrigatórios." });
     }
 
+    const imagem = ITEM_DEFAULT_IMAGE;
+
     const [result] = await pool.execute(
-      "INSERT INTO ItemRestaurante (id_restaurante, nome, descricao, preco, categoria) VALUES (?, ?, ?, ?, ?)",
-      [id_restaurante, nome, descricao, preco, categoria]
+      "INSERT INTO ItemRestaurante (id_restaurante, nome, preco) VALUES (?, ?, ?, ?)",
+      [id_restaurante, nome, preco, imagem]
     );
 
     res.json({
@@ -22,9 +28,8 @@ router.post("/restaurants/:id/items", async (req, res) => {
         id_item_restaurante: result.insertId,
         id_restaurante,
         nome,
-        descricao,
         preco,
-        categoria
+        imagem
       }
     });
 
@@ -34,16 +39,23 @@ router.post("/restaurants/:id/items", async (req, res) => {
   }
 });
 
+// Listar itens
 router.get("/restaurants/:id/items", async (req, res) => {
   try {
     const id_restaurante = req.params.id;
 
     const [rows] = await pool.execute(
-      "SELECT * FROM ItemRestaurante WHERE id_restaurante = ?",
+      "SELECT id_item_restaurante, id_restaurante, nome, preco FROM ItemRestaurante WHERE id_restaurante = ?",
       [id_restaurante]
     );
 
-    res.json({ items: rows });
+    // garantir imagem padrão caso seja null
+    const items = rows.map(i => ({
+      ...i,
+      imagem: i.imagem || ITEM_DEFAULT_IMAGE
+    }));
+
+    res.json({ items });
 
   } catch (err) {
     console.error("ERRO AO LISTAR ITENS:", err);
@@ -51,20 +63,22 @@ router.get("/restaurants/:id/items", async (req, res) => {
   }
 });
 
+// Atualizar item
 router.put("/items/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const { nome, descricao, preco, categoria } = req.body;
+    const { nome, preco } = req.body;
 
-    const [result] = await pool.execute(
-      "UPDATE ItemRestaurante SET nome=?, descricao=?, preco=?, categoria=? WHERE id_item_restaurante=?",
-      [nome, descricao, preco, categoria, id]
+    if (!nome || preco == null || isNaN(Number(preco))) {
+      return res.status(400).json({ message: "Nome e preço obrigatórios." });
+    }
+
+    await pool.execute(
+      "UPDATE ItemRestaurante SET nome=?, preco=? WHERE id_item_restaurante=?",
+      [nome, preco, id]
     );
 
-    res.json({
-      success: true,
-      message: "Item atualizado."
-    });
+    res.json({ success: true, message: "Item atualizado." });
 
   } catch (err) {
     console.error("ERRO AO ATUALIZAR ITEM:", err);
@@ -72,6 +86,7 @@ router.put("/items/:id", async (req, res) => {
   }
 });
 
+// Deletar item
 router.delete("/items/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -85,7 +100,7 @@ router.delete("/items/:id", async (req, res) => {
 
   } catch (err) {
     console.error("ERRO AO DELETAR ITEM:", err);
-    res.status(500).json({ message: "Erro ao deletar item." });
+    res.status(500).json({ message: "Erro ao remover item." });
   }
 });
 

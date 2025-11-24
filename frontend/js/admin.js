@@ -43,11 +43,7 @@ async function initAdminFlow() {
     }
   }
 
-  const modalPaths = [
-    "/html/create-restaurant-modal.html",
-    "../html/create-restaurant-modal.html",
-    "./html/create-restaurant-modal.html",
-  ];
+  const modalPaths = [ "../html/modals/create-restaurant-modal.html"];
 
   async function openCreateRestaurantModal() {
     const existing = document.getElementById("feCreateRestOverlay");

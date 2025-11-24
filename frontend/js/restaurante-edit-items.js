@@ -1,3 +1,4 @@
+// /mnt/data/restaurante-edit-items.js
 document.addEventListener("DOMContentLoaded", loadRestaurantItems);
 
 async function loadRestaurantItems() {
@@ -14,23 +15,23 @@ async function loadRestaurantItems() {
     const res = await fetch(`http://localhost:3000/api/restaurants/${rest.id_restaurante}/items`);
     const data = await res.json();
 
-    if (!data.items.length) {
+    const items = data.items || [];
+    if (!items.length) {
       grid.innerHTML = "<p>Nenhum item cadastrado ainda.</p>";
       return;
     }
 
     grid.innerHTML = "";
 
-    data.items.forEach(item => {
+    items.forEach(item => {
       const card = document.createElement("article");
       card.classList.add("menu-item");
 
       card.innerHTML = `
-        <img src="../imagens/generica.png" class="item-thumb">
+        <img src="../imagens/burger.png" class="item-thumb" alt="${escapeHtml(item.nome)}">
 
         <div class="item-body">
-          <h3 class="item-name">${item.nome}</h3>
-          <p class="item-desc">${item.descricao}</p>
+          <h3 class="item-name">${escapeHtml(item.nome)}</h3>
         </div>
 
         <div class="item-meta">
@@ -55,20 +56,17 @@ async function editItem(id) {
   const newName = prompt("Novo nome do item:");
   if (!newName) return;
 
-  const newDesc = prompt("Nova descrição:");
-  if (!newDesc) return;
-
-  const newPrice = prompt("Novo preço:");
-  if (!newPrice) return;
+  const newPriceRaw = prompt("Novo preço (use ponto para decimais):");
+  if (!newPriceRaw) return;
+  const newPrice = parseFloat(newPriceRaw);
+  if (isNaN(newPrice)) { alert('Preço inválido.'); return; }
 
   const res = await fetch(`http://localhost:3000/api/items/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       nome: newName,
-      descricao: newDesc,
-      preco: parseFloat(newPrice),
-      categoria: ""
+      preco: newPrice
     })
   });
 
@@ -96,3 +94,5 @@ async function deleteItem(id) {
   alert("Item removido!");
   loadRestaurantItems();
 }
+
+function escapeHtml(s){ if(!s&&s!==0) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }

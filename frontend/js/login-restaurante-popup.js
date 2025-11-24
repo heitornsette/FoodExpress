@@ -1,6 +1,6 @@
 (function () {
   const cssPath = '../css/login-popup.css';
-  const htmlPath = '../html/login-restaurante-modal.html';
+  const htmlPath = '../html/modals/login-restaurante-modal.html';
 
   if (!document.querySelector(`link[href="${cssPath}"]`)) {
     const link = document.createElement('link');

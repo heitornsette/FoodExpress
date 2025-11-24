@@ -152,7 +152,7 @@ function repeatOrder(pedido) {
     qty: parseInt(it.quantidade ?? it.qty ?? 1, 10) || 1
   }));
   localStorage.setItem('fe_cart', JSON.stringify(cart));
-  window.location.href = '../html/restaurante.html';
+  window.location.href = 'html/restaurante.html';
 }
 
 function formatStatus(status) {

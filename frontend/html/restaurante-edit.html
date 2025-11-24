@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FoodExpress — Editar Restaurante</title>
+
+  <link rel="stylesheet" href="../css/restaurante-edit.css">
+  <link rel="stylesheet" href="../css/login-popup.css">
+  <link rel="stylesheet" href="../css/home.css">
+</head>
+
+<body>
+  <!-- Header: simples -->
+  <header>
+    <div class="logo">
+      <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
+        <img src="../imagens/carrinho.svg" alt="">
+        <h1>FoodExpress</h1>
+      </a>
+    </div>
+  </header>
+
+  <main class="rest-edit-main">
+    <section class="rest-edit-hero container-960">
+      <div class="hero-card">
+        <div class="hero-media">
+          <div class="hero-media-inner">
+            <img id="restHeroImg" src="../imagens/generica.png" alt="Imagem do restaurante">
+          </div>
+        </div>
+
+        <div class="hero-info">
+          <div class="hero-title-row">
+            <h1 class="rest-title" id="restNome">Nome do Restaurante <small>— Editar</small></h1>
+            <div class="categoria-tag" id="restCozinha">Tipo</div>
+          </div>
+
+          <p class="descricao" id="restDescricao">Breve descrição do restaurante.</p>
+
+          <div class="meta-row">
+            <div class="nota"><span class="estrela">★</span> 4.8 • 25–35 min</div>
+            <div class="acoes">
+              <button class="btn-primario" id="btnEditarDesc">Editar descrição</button>
+              <button class="btn-secundario" id="btnVerPedidos">Ir para pedidos</button>
+            </div>
+          </div>
+
+          <div class="info-adicional">
+            <div><strong>Endereço:</strong> <span id="restEndereco">Av. Example, 123 — Aldeota</span></div>
+            <div><strong>Horário:</strong> <span id="restHorario">11:00 — 23:00</span></div>
+            <div><strong>Telefone:</strong> <span id="restTelefone">123123123</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rest-edit-body container-960">
+      <nav class="tabs" role="tablist" aria-label="Seções do restaurante">
+        <button class="tab active" data-tab="cardapio">Cardápio</button>
+        <button class="tab" data-tab="pedidos">Pedidos</button>
+      </nav>
+
+      <!-- CARDÁPIO -->
+      <div id="cardapio" class="tab-panel active">
+        <div class="cardapio-header">
+          <h2 class="sec-title">Itens do cardápio</h2>
+          <div class="cardapio-actions">
+            <button class="btn-primario" onclick="openCreateItemModal()">Novo item +</button>
+            <input class="input-search" placeholder="Buscar item..." aria-label="Buscar item">
+          </div>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+          <p class="muted">Nenhum item cadastrado ainda.</p>
+        </div>
+      </div>
+
+      <!-- PEDIDOS -->
+      <div id="pedidos" class="tab-panel" aria-live="polite">
+        <h2 class="sec-title">Pedidos recebidos</h2>
+        <div id="ordersList" class="orders-list">
+          <p class="muted">Carregando pedidos...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // carrega dados do restaurante logado
+    function getLoggedRestaurant() {
+      const data = localStorage.getItem("fe_restaurant");
+      if (!data) return null;
+      try { return JSON.parse(data); } catch(e) { return null; }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const rest = getLoggedRestaurant();
+      if (!rest) {
+        alert("Você precisa fazer login como restaurante.");
+        window.location.href = "../html/home.html";
+        return;
+      }
+
+      document.getElementById("restNome").textContent = rest.nome || "Restaurante";
+      document.getElementById("restCozinha").textContent = rest.cozinha || "";
+      document.getElementById("restDescricao").textContent = rest.descricao || `${rest.nome} — especializado em ${rest.cozinha}.`;
+      document.getElementById("restEndereco").textContent = rest.endereco || "Av. Example, 123 — Aldeota";
+      document.getElementById("restHorario").textContent = rest.horario || "11:00 — 23:00";
+      document.getElementById("restTelefone").textContent = rest.telefone || rest.phone || "";
+      document.getElementById("restHeroImg").src = "../imagens/generica.png";
+
+      // carregar pedidos ao abrir a aba pedidos
+      loadOrdersForRestaurant();
+
+      // botão "Ir para pedidos" foca na aba
+      document.getElementById('btnVerPedidos').addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t=> t.classList.toggle('active', t.dataset.tab==='pedidos'));
+        document.querySelectorAll('.tab-panel').forEach(p=> p.classList.toggle('active', p.id==='pedidos'));
+        loadOrdersForRestaurant();
+      });
+    });
+
+    // troca de abas
+    document.addEventListener("click", (e) => {
+      const tb = e.target.closest('.tab');
+      if (!tb) return;
+      const tab = tb.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t=> t.classList.toggle('active', t===tb));
+      document.querySelectorAll('.tab-panel').forEach(p=> p.classList.toggle('active', p.id===tab));
+      if (tab === 'pedidos') loadOrdersForRestaurant();
+    });
+
+    // CARREGA pedidos do restaurante
+    async function loadOrdersForRestaurant() {
+      const rest = getLoggedRestaurant();
+      if (!rest) return;
+
+      const ordersList = document.getElementById('ordersList');
+      ordersList.innerHTML = '<p class="muted">Carregando pedidos...</p>';
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/pedidos?restaurante=${rest.id_restaurante}`);
+        if (!res.ok) throw new Error('Erro ao buscar pedidos');
+        const body = await res.json();
+        const pedidos = body.pedidos || [];
+
+        if (!pedidos.length) {
+          ordersList.innerHTML = '<p class="muted">Nenhum pedido recebido ainda.</p>';
+          return;
+        }
+
+        ordersList.innerHTML = '';
+
+        pedidos.forEach(p => {
+          const orderEl = document.createElement('div');
+          orderEl.className = 'order-card';
+          // itens list
+          const itensHtml = (p.itens || []).map(it => `<div>${escapeHtml(it.descricao || it.descricao || 'Item')} × ${it.quantidade} — R$ ${Number(it.preco).toFixed(2)}</div>`).join('');
+
+          // botão de status que avança o status
+          const btnId = `orderStatusBtn_${p.id_pedido}`;
+          orderEl.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong>#${p.id_pedido}</strong> — <span class="muted">${new Date(p.horario).toLocaleString()}</span>
+                <div style="margin-top:6px">${itensHtml}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="margin-bottom:8px"><strong>Status:</strong> <span id="status_${p.id_pedido}">${escapeHtml(p.status)}</span></div>
+                <button id="${btnId}" class="btn-primario btn-sm">Avançar status</button>
+              </div>
+            </div>
+          `;
+
+          ordersList.appendChild(orderEl);
+
+          // attach click
+          document.getElementById(btnId).addEventListener('click', () => advanceOrderStatus(p.id_pedido));
+        });
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById('ordersList').innerHTML = '<p class="muted">Erro ao carregar pedidos.</p>';
+      }
+    }
+
+    // Avança status do pedido: chama backend com action=advance
+    async function advanceOrderStatus(orderId) {
+      const statusSpan = document.getElementById(`status_${orderId}`);
+      if (!statusSpan) return;
+
+      // otimista: disable button while processando
+      const btn = document.getElementById(`orderStatusBtn_${orderId}`);
+      btn.disabled = true;
+      btn.textContent = 'Processando...';
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/pedidos/${orderId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'advance' })
+        });
+        if (!res.ok) {
+          const b = await res.json().catch(()=>({message:'Erro'}));
+          alert(b.message || 'Erro ao atualizar status');
+          btn.disabled = false;
+          btn.textContent = 'Avançar status';
+          return;
+        }
+
+        const body = await res.json();
+        const novo = body.pedido.status;
+        statusSpan.textContent = novo;
+
+        // se já estiver em 'Entregue' desabilitar botão
+        if (novo === 'Entregue') {
+          btn.disabled = true;
+          btn.textContent = 'Entregue';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Avançar status';
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Erro na requisição.');
+        btn.disabled = false;
+        btn.textContent = 'Avançar status';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str && str !== 0) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+
+  <script src="../js/create-item.js"></script>
+  <script src="../js/restaurante-edit-items.js"></script>
+  <script src="../js/auth-ui.js" defer></script>
+</body>
+</html>
