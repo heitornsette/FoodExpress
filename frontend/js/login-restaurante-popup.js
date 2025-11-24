@@ -17,6 +17,19 @@
     })
     .catch(err => console.error('Erro ao carregar login-restaurante-modal:', err));
 
+  window.openRestLoginModal = function () {
+    const token = localStorage.getItem('fe_restaurant_token');
+    const rest = localStorage.getItem('fe_restaurant');
+
+    if (token && rest) {
+      window.location.href = "../html/restaurante-edit.html";
+      return;
+    }
+
+    const overlay = document.getElementById("feRestLoginOverlay");
+    overlay?.classList.add("open");
+  };
+
   function initRestaurantLoginModal() {
     const overlay = document.getElementById('feRestLoginOverlay');
     const closeBtn = document.getElementById('feRestLoginClose');
@@ -26,12 +39,11 @@
 
     function openModal() {
       prevFocused = document.activeElement;
-
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
 
-      const firstInput = document.getElementById('rest_login_email');
+      const firstInput = document.getElementById('rest_login_name');
       setTimeout(() => firstInput?.focus(), 80);
     }
 
@@ -43,7 +55,17 @@
       if (prevFocused && prevFocused.focus) prevFocused.focus();
     }
 
-    window.openRestLoginModal = () => openModal();
+    window.openRestLoginModal = () => {
+      const token = localStorage.getItem('fe_restaurant_token');
+      const rest = localStorage.getItem('fe_restaurant');
+
+      if (token && rest) {
+        window.location.href = "../html/restaurante-edit.html";
+        return;
+      }
+
+      openModal();
+    };
 
     closeBtn?.addEventListener('click', closeModal);
 
@@ -79,7 +101,6 @@
         console.log('Login restaurante OK:', body);
 
         localStorage.setItem('fe_restaurant_token', body.token);
-
         localStorage.setItem('fe_restaurant', JSON.stringify(body.restaurant));
 
         closeModal();
@@ -87,7 +108,6 @@
         setTimeout(() => {
           window.location.replace("../html/restaurante-edit.html");
         }, 150);
-        ;
 
       } catch (err) {
         alert('Erro de conexão com servidor.');

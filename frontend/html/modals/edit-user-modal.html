@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feEditUserOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="fe-login-card" role="document" style="max-width:460px;">
+    <button class="fe-login-close" id="feEditUserClose" aria-label="Fechar">✕</button>
+
+    <div style="padding:20px;">
+      <h2 class="fe-welcome" style="text-align:center">Editar Dados</h2>
+      <p class="fe-sub" style="text-align:center">Atualize seu telefone, endereço ou altere a senha.</p>
+
+      <form id="feEditUserForm" class="fe-form" novalidate>
+        <div class="field">
+          <label for="fe_edit_tel">Telefone</label>
+          <input id="fe_edit_tel" name="telefone" type="text" placeholder="85999990000" required>
+        </div>
+
+        <div class="field">
+          <label for="fe_edit_end">Endereço</label>
+          <input id="fe_edit_end" name="endereco" type="text" placeholder="Rua, número, bairro" required>
+        </div>
+
+        <div class="field">
+          <label for="fe_edit_pass">Nova Senha (opcional)</label>
+          <input id="fe_edit_pass" name="password" type="password" placeholder="Deixe em branco para manter a atual">
+        </div>
+
+        <div style="margin-top:12px; display:flex; gap:10px;">
+          <button type="button" id="feEditUserCancel" class="btn-secundario" style="flex:1">Cancelar</button>
+          <button type="submit" class="btn-primario full" style="flex:1">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

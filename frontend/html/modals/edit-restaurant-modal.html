@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feEditRestOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="fe-login-card" style="max-width:460px;">
+    <button class="fe-login-close" id="feEditRestClose">✕</button>
+
+    <div style="padding:20px;">
+      <h2 class="fe-welcome" style="text-align:center">Editar Restaurante</h2>
+
+      <form id="feEditRestForm" class="fe-form" novalidate>
+        <div class="field">
+          <label>Nome do Restaurante</label>
+          <input id="fe_edit_rest_nome" type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Cozinha</label>
+          <input id="fe_edit_rest_cozinha" type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Telefone</label>
+          <input id="fe_edit_rest_tel" type="text" required>
+        </div>
+
+        <div class="field">
+          <label>Nova Senha (opcional)</label>
+          <input id="fe_edit_rest_pass" type="password">
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button type="button" class="btn-secundario" id="feEditRestCancel">Cancelar</button>
+          <button type="submit" class="btn-primario full">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

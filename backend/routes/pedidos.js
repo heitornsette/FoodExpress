@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../src/db');
 
-// ORDEM dos status
 const STATUS_SEQ = ['Em preparo', 'A caminho', 'Entregue'];
 
-// ===============================
-// CRIAR PEDIDO (SEM MUDANÇAS)
-// ===============================
 router.post('/', async (req, res) => {
   const conn = await pool.getConnection();
   try {
@@ -23,10 +19,10 @@ router.post('/', async (req, res) => {
     }
 
     await conn.beginTransaction();
-
+    
     const [pedidoResult] = await conn.execute(
-      'INSERT INTO Pedido (horario, id_cliente, id_restaurante, status) VALUES (?, ?, ?, ?)',
-      [horario || new Date(), id_cliente, id_restaurante, 'Em preparo']
+      'INSERT INTO Pedido (horario, id_cliente, id_restaurante, status) VALUES (NOW(), ?, ?, ?)',
+      [id_cliente, id_restaurante, 'Em preparo']
     );
 
     const id_pedido = pedidoResult.insertId;
@@ -70,9 +66,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ====================================
-// 🔥 GET PEDIDOS COM SUPORTE AO RESTAURANTE
-// ====================================
 router.get('/', async (req, res) => {
   try {
     const id_cliente = req.query.cliente;
@@ -97,7 +90,6 @@ router.get('/', async (req, res) => {
       pedidosRows = r;
     }
 
-    // ANEXAR ITENS DE CADA PEDIDO
     const pedidosComItens = [];
     for (const p of pedidosRows) {
       const [items] = await pool.execute('SELECT * FROM ItemPedido WHERE id_pedido = ?', [
@@ -117,9 +109,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ====================================
-// 🔥 ATUALIZAR STATUS DO PEDIDO
-// ====================================
 router.put('/:id/status', async (req, res) => {
   try {
     const id = req.params.id;

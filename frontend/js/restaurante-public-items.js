@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const qs = new URLSearchParams(window.location.search);
   const idFromQs = qs.get('id');
 
-  // Caso venha via URL
   if (!restRaw && idFromQs) {
     try {
       const rRes = await fetch(`http://localhost:3000/api/restaurants/${idFromQs}`);
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) { }
   }
 
-  // Sem restaurante → erro
   if (!restRaw) {
     const gridWarn = document.querySelector('#cardapio .menu-grid');
     if (gridWarn) gridWarn.innerHTML = '<p>Nenhum restaurante selecionado.</p>';
@@ -43,7 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     items.forEach(item => {
       const preco = parseFloat(item.preco || 0);
 
-      // backend sempre envia item.imagem OU substitui por imagem padrão
       const imgSrc = item.imagem ? `..${item.imagem}` : "../imagens/burger.png";
 
       const art = document.createElement('article');

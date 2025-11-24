@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="../css/login-popup.css">
+
+<div class="fe-login-overlay" id="feConfirmDeleteOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="fe-login-card" role="document" style="max-width:420px;">
+    <button class="fe-login-close" id="feConfirmDeleteClose" aria-label="Fechar">✕</button>
+
+    <div style="padding:20px;">
+      <div class="fe-brand" style="justify-content:center;margin-bottom:8px">
+        <div class="fe-brand-icon" aria-hidden="true">
+          <img src="../imagens/lixo.svg" alt="" style="width:20px;height:20px;">
+        </div>
+      </div>
+
+      <h2 class="fe-welcome" style="text-align:center">Confirmar Exclusão</h2>
+      <p class="fe-sub" style="text-align:center">Tem certeza que deseja apagar sua conta? Esta ação é <strong>irreversível</strong>.</p>
+
+      <div style="display:flex;gap:10px;margin-top:18px;justify-content:center">
+        <button id="confirmDeleteCancel" class="btn-secundario">Cancelar</button>
+        <button id="confirmDeleteOk" class="btn-primario" style="background:#d00000;border:none">Apagar Conta</button>
+      </div>
+    </div>
+  </div>
+</div>

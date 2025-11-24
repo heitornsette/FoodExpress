@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../src/db");
 
-// Caminho da imagem padrão
 const ITEM_DEFAULT_IMAGE = "/imagens/burger.png";
 
-// Criar item
 router.post("/restaurants/:id/items", async (req, res) => {
   try {
     const id_restaurante = req.params.id;
@@ -18,8 +16,8 @@ router.post("/restaurants/:id/items", async (req, res) => {
     const imagem = ITEM_DEFAULT_IMAGE;
 
     const [result] = await pool.execute(
-      "INSERT INTO ItemRestaurante (id_restaurante, nome, preco) VALUES (?, ?, ?, ?)",
-      [id_restaurante, nome, preco, imagem]
+      "INSERT INTO ItemRestaurante (id_restaurante, nome, preco) VALUES (?, ?, ?)",
+      [id_restaurante, nome, preco]
     );
 
     res.json({
@@ -39,7 +37,6 @@ router.post("/restaurants/:id/items", async (req, res) => {
   }
 });
 
-// Listar itens
 router.get("/restaurants/:id/items", async (req, res) => {
   try {
     const id_restaurante = req.params.id;
@@ -49,7 +46,6 @@ router.get("/restaurants/:id/items", async (req, res) => {
       [id_restaurante]
     );
 
-    // garantir imagem padrão caso seja null
     const items = rows.map(i => ({
       ...i,
       imagem: i.imagem || ITEM_DEFAULT_IMAGE
@@ -63,7 +59,6 @@ router.get("/restaurants/:id/items", async (req, res) => {
   }
 });
 
-// Atualizar item
 router.put("/items/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -86,7 +81,6 @@ router.put("/items/:id", async (req, res) => {
   }
 });
 
-// Deletar item
 router.delete("/items/:id", async (req, res) => {
   try {
     const id = req.params.id;

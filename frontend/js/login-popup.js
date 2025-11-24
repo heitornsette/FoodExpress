@@ -160,7 +160,6 @@ async function handleLogin() {
 
     console.log('[LOGIN] status:', res.status, 'ok:', res.ok);
 
-    // tenta extrair JSON (se houver)
     let body = null;
     try {
       body = await res.json();
@@ -170,7 +169,6 @@ async function handleLogin() {
     console.log('[LOGIN] corpo:', body);
 
     if (!res.ok) {
-      // mostra mensagem do backend quando disponível
       const msg = body && body.message ? body.message : `Erro ${res.status}`;
       if (res.status === 401) {
         showError('fe_err_pass', msg);
@@ -180,9 +178,7 @@ async function handleLogin() {
       return;
     }
 
-    // sucesso esperado: { success: true, token, user }
     if (body && body.token) {
-      // salvar token + usuário explicitamente
       try {
         localStorage.setItem('fe_token', body.token);
         if (body.user) localStorage.setItem('fe_user', JSON.stringify(body.user));
@@ -193,7 +189,6 @@ async function handleLogin() {
 
       successMessage('Entrou com sucesso!');
 
-      // força reload e fecha modal
       setTimeout(() => {
         try { closeModal(); } catch (e) {}
         window.location.reload();
@@ -213,8 +208,6 @@ function handleSignup() {
   const emailEl = document.getElementById('fe_signup_email');
   const passEl = document.getElementById('fe_signup_password');
   const telEl = document.getElementById('fe_signup_telefone');
-
-  // ➕ ENDEREÇO ADICIONADO
   const endEl = document.getElementById('fe_signup_endereco');
 
   const name = nameEl?.value.trim() || '';
@@ -222,7 +215,6 @@ function handleSignup() {
   const pass = passEl?.value || '';
   const telRaw = telEl?.value.trim() || '';
 
-  // ➕ ENDEREÇO ADICIONADO
   const endereco = endEl?.value.trim() || '';
 
   clearErrors();
@@ -231,29 +223,28 @@ function handleSignup() {
 
   const nameRe = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,100}$/u;
   if (!nameRe.test(name)) {
-    showError('fe_err_name', "Nome inválido — use apenas letras, espaços, - ou '. (2–100 caracteres)");
+    showError('fe_err_name', "Nome invalido, use apenas letras.");
     ok = false;
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showError('fe_err_semail', 'Email inválido');
+    showError('fe_err_semail', 'Email inválido.');
     ok = false;
   }
 
   if (pass.length < 6) {
-    showError('fe_err_spass', 'Senha deve ter ao menos 6 caracteres');
+    showError('fe_err_spass', 'Senha deve ter ao menos 6 caracteres.');
     ok = false;
   }
 
   const digits = telRaw.replace(/\D/g, '');
-  if (digits.length < 8 || digits.length > 15) {
-    showError('fe_err_telefone', 'Telefone inválido (digite DDD + número).');
+  if (digits.length < 8 || digits.length > 11) {
+    showError('fe_err_telefone', 'Telefone invalido.');
     ok = false;
   }
 
-  // ➕ ENDEREÇO ADICIONADO (vem do backend)
-  if (!endereco || endereco.length < 4) {
-    showError('fe_err_endereco', 'Endereço inválido');
+  if (!endereco || endereco.length < 5 || /^\d+$/.test(endereco)) {
+    showError('fe_err_endereco', 'Endereço invalido.');
     ok = false;
   }
 
@@ -261,7 +252,6 @@ function handleSignup() {
 
   const telefone = digits;
 
-  // ➕ ENDEREÇO ADICIONADO AQUI NO BODY
   fetch('http://localhost:3000/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -276,21 +266,25 @@ function handleSignup() {
     return body;
   })
   .then(data => {
-    successMessage('Conta criada com sucesso! Entrando…');
+    successMessage('Conta criada com sucesso! Faça login para acessar.');
 
-    if (data && data.token) localStorage.setItem('fe_token', data.token);
-    if (data && data.user) localStorage.setItem('fe_user', JSON.stringify(data.user));
+    const loginEmail = document.getElementById('fe_login_email');
+    const loginPass = document.getElementById('fe_login_password');
+    if (loginEmail) loginEmail.value = email;
+    if (loginPass) loginPass.value = '';
 
-    setTimeout(() => {
-      closeModal();
-      window.location.reload();
-    }, 900);
+    switchToTab('login');
+
+    passEl.value = '';
+    telEl.value = '';
+    endEl.value = '';
+    nameEl.value = '';
+    emailEl.value = '';
   })
   .catch(err => {
     showError('fe_err_telefone', err.message || 'Erro ao criar conta');
   });
 }
-
 
     function showError(id, msg) {
       const el = document.getElementById(id);

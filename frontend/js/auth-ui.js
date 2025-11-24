@@ -45,7 +45,6 @@ router.post('/signup', async (req, res) => {
     const plainPassword = password;
 
     const [result] = await pool.execute(
-      // adiciona endereco na inserção
       'INSERT INTO Cliente (nome, email, senha, telefone, endereco, is_admin) VALUES (?, ?, ?, ?, ?, ?)',
       [name.trim(), email, plainPassword, tel, endereco.trim(), false]
     );
@@ -79,7 +78,6 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Senha é obrigatória.' });
     }
 
-    // selecionar também o endereco
     const [rows] = await pool.execute('SELECT id_cliente, nome, email, senha, is_admin, endereco FROM Cliente WHERE email = ?', [email]);
     if (rows.length === 0) {
       return res.status(401).json({ message: 'Credenciais inválidas.' });

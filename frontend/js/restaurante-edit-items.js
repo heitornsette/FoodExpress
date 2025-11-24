@@ -1,4 +1,3 @@
-// /mnt/data/restaurante-edit-items.js
 document.addEventListener("DOMContentLoaded", loadRestaurantItems);
 
 async function loadRestaurantItems() {

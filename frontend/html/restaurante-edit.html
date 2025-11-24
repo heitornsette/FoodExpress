@@ -11,15 +11,19 @@
 </head>
 
 <body>
-  <!-- Header: simples -->
-  <header>
-    <div class="logo">
-      <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
-        <img src="../imagens/carrinho.svg" alt="">
-        <h1>FoodExpress</h1>
-      </a>
-    </div>
-  </header>
+<header>
+  <div class="logo">
+    <a href="../html/home.html" class="logo-link" aria-label="FoodExpress - Home">
+      <img src="../imagens/carrinho.svg" alt="">
+      <h1>FoodExpress</h1>
+    </a>
+  </div>
+
+  <div class="rest-header-actions">
+    <button id="restLogoutBtn" class="btn-secundario">Sair</button>
+  </div>
+</header>
+
 
   <main class="rest-edit-main">
     <section class="rest-edit-hero container-960">
@@ -40,9 +44,11 @@
 
           <div class="meta-row">
             <div class="nota"><span class="estrela">★</span> 4.8 • 25–35 min</div>
-            <div class="acoes">
-              <button class="btn-primario" id="btnEditarDesc">Editar descrição</button>
-              <button class="btn-secundario" id="btnVerPedidos">Ir para pedidos</button>
+            <div class="rest-edit-actions" style="display:flex;gap:10px;margin:15px 0;">
+              <button id="btnEditRestaurant" class="btn-primario">Editar Restaurante</button>
+              <button id="btnDeleteRestaurant" class="btn-secundario" style="color:#d00000;font-weight:700;border:1px solid #d00000;">
+                Apagar Restaurante
+              </button>
             </div>
           </div>
 
@@ -61,7 +67,6 @@
         <button class="tab" data-tab="pedidos">Pedidos</button>
       </nav>
 
-      <!-- CARDÁPIO -->
       <div id="cardapio" class="tab-panel active">
         <div class="cardapio-header">
           <h2 class="sec-title">Itens do cardápio</h2>
@@ -76,7 +81,6 @@
         </div>
       </div>
 
-      <!-- PEDIDOS -->
       <div id="pedidos" class="tab-panel" aria-live="polite">
         <h2 class="sec-title">Pedidos recebidos</h2>
         <div id="ordersList" class="orders-list">
@@ -87,7 +91,6 @@
   </main>
 
   <script>
-    // carrega dados do restaurante logado
     function getLoggedRestaurant() {
       const data = localStorage.getItem("fe_restaurant");
       if (!data) return null;
@@ -110,10 +113,8 @@
       document.getElementById("restTelefone").textContent = rest.telefone || rest.phone || "";
       document.getElementById("restHeroImg").src = "../imagens/generica.png";
 
-      // carregar pedidos ao abrir a aba pedidos
       loadOrdersForRestaurant();
 
-      // botão "Ir para pedidos" foca na aba
       document.getElementById('btnVerPedidos').addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t=> t.classList.toggle('active', t.dataset.tab==='pedidos'));
         document.querySelectorAll('.tab-panel').forEach(p=> p.classList.toggle('active', p.id==='pedidos'));
@@ -121,7 +122,6 @@
       });
     });
 
-    // troca de abas
     document.addEventListener("click", (e) => {
       const tb = e.target.closest('.tab');
       if (!tb) return;
@@ -131,7 +131,6 @@
       if (tab === 'pedidos') loadOrdersForRestaurant();
     });
 
-    // CARREGA pedidos do restaurante
     async function loadOrdersForRestaurant() {
       const rest = getLoggedRestaurant();
       if (!rest) return;
@@ -155,10 +154,8 @@
         pedidos.forEach(p => {
           const orderEl = document.createElement('div');
           orderEl.className = 'order-card';
-          // itens list
           const itensHtml = (p.itens || []).map(it => `<div>${escapeHtml(it.descricao || it.descricao || 'Item')} × ${it.quantidade} — R$ ${Number(it.preco).toFixed(2)}</div>`).join('');
 
-          // botão de status que avança o status
           const btnId = `orderStatusBtn_${p.id_pedido}`;
           orderEl.innerHTML = `
             <div style="display:flex;justify-content:space-between;align-items:center">
@@ -175,7 +172,6 @@
 
           ordersList.appendChild(orderEl);
 
-          // attach click
           document.getElementById(btnId).addEventListener('click', () => advanceOrderStatus(p.id_pedido));
         });
 
@@ -185,12 +181,10 @@
       }
     }
 
-    // Avança status do pedido: chama backend com action=advance
     async function advanceOrderStatus(orderId) {
       const statusSpan = document.getElementById(`status_${orderId}`);
       if (!statusSpan) return;
 
-      // otimista: disable button while processando
       const btn = document.getElementById(`orderStatusBtn_${orderId}`);
       btn.disabled = true;
       btn.textContent = 'Processando...';
@@ -213,7 +207,6 @@
         const novo = body.pedido.status;
         statusSpan.textContent = novo;
 
-        // se já estiver em 'Entregue' desabilitar botão
         if (novo === 'Entregue') {
           btn.disabled = true;
           btn.textContent = 'Entregue';
@@ -239,7 +232,8 @@
         .replace(/'/g, '&#39;');
     }
   </script>
-
+  <script src="../js/restaurante-edit-page.js"></script>
+  <script src="../js/restaurante-logout.js"></script>
   <script src="../js/create-item.js"></script>
   <script src="../js/restaurante-edit-items.js"></script>
   <script src="../js/auth-ui.js" defer></script>

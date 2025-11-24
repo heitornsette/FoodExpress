@@ -1,4 +1,3 @@
-// /mnt/data/create-item.js
 (function () {
 
   const modalPaths = [ "../html/modals/create-item-modal.html"];
@@ -76,7 +75,6 @@
         alert("Item criado com sucesso!");
         close();
 
-        // recarregar lista do cardápio (se existir função)
         if (typeof loadRestaurantItems === 'function') {
           try { setTimeout(()=> loadRestaurantItems(), 300); } catch(e){}
         }
